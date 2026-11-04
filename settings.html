@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | Mhamad</title>
+    <meta name="description" content="Site settings.">
+    <link rel="icon" href="assets/avatar.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/theme.js"></script>
+</head>
+
+<body>
+    <div class="bg-circle bg1"></div>
+    <div class="bg-circle bg2"></div>
+    <div class="bg-circle bg3"></div>
+
+    <header class="nav">
+        <a class="brand" href="index.html">
+            <span class="logo"><img src="assets/avatar.jpg" alt="Mhamad"></span>
+            <span>Mhamad</span>
+        </a>
+        <nav class="nav-links" aria-label="Main">
+            <a href="index.html">Home</a>
+            <a href="projects.html">Projects</a>
+            <a href="blog.html">Blog</a>
+        </nav>
+        <div class="nav-end">
+            <a class="switch-circle icon-btn" href="settings.html" aria-label="Settings" title="Settings"><i class="fa-solid fa-gear"></i></a>
+            <div class="nav-end" id="authSlot">
+            <a class="main-btn btn-inline btn-small" href="login.html">Login</a>
+        </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="section" style="margin-top: 60px;">
+            <div class="section-head">
+                <h2>Settings</h2>
+                <p>Change how the site looks. Your choice is saved on this device.</p>
+            </div>
+            <div class="settings-card">
+                <div class="setting-row">
+                    <div>
+                        <h3>Glass theme</h3>
+                        <p>Turn it on for the night-landscape glass look, off for the default soft look. It applies to the whole site, including login and sign-up.</p>
+                    </div>
+                    <button type="button" class="switch" role="switch" aria-checked="false" aria-label="Glass theme" data-theme-toggle></button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="logo"><img src="assets/avatar.jpg" alt="Mhamad"></span>
+                <p><strong>Mhamad</strong>Developer building websites and apps.</p>
+            </div>
+            <nav class="footer-links" aria-label="Footer">
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="blog.html">Blog</a>
+                <a href="index.html#contact">Contact</a>
+                <a href="login.html">Login</a>
+            </nav>
+            <div class="footer-social">
+                <a class="switch-circle icon-btn" href="https://github.com/mhamad-code" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a class="switch-circle icon-btn" href="https://t.me/MohameedHamra" target="_blank" rel="noopener" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
+                <a class="switch-circle icon-btn" href="https://instagram.com/mohameed.hamra" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a class="switch-circle icon-btn" href="https://wa.me/963951348968" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                <a class="switch-circle icon-btn" href="mailto:mhamra148@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+        </div>
+        <div class="footer-line"></div>
+        <p class="copyright">&copy; <span id="year"></span> Mhamad. Built by hand and hosted on GitHub Pages.</p>
+    </footer>
+
+    <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+    <script type="module" src="js/nav.js"></script>
+</body>
+
+</html>
