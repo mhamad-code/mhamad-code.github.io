@@ -1,0 +1,18 @@
+[
+  {
+    "slug": "welcome-to-my-blog",
+    "title": "Welcome to my blog",
+    "author": "Mhamad",
+    "date": "2026-11-04",
+    "description": "Why I started this blog and what you can expect to read here.",
+    "image": "assets/blog/welcome.svg"
+  },
+  {
+    "slug": "firebase-login-in-a-static-site",
+    "title": "Adding Firebase login to a static website",
+    "author": "Mhamad",
+    "date": "2026-10-28",
+    "description": "A short guide to email, Google and GitHub sign-in on a site hosted on GitHub Pages.",
+    "image": "assets/blog/firebase-login.svg"
+  }
+]

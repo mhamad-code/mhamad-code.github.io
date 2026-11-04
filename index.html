@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mhamad | Portfolio</title>
+    <meta name="description" content="Mhamad’s portfolio. About, skills, services, projects and contact.">
+    <link rel="icon" href="assets/avatar.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="bg-circle bg1"></div>
+    <div class="bg-circle bg2"></div>
+    <div class="bg-circle bg3"></div>
+
+    <header class="nav">
+        <a class="brand" href="index.html">
+            <span class="logo"><img src="assets/avatar.jpg" alt="Mhamad"></span>
+            <span>Mhamad</span>
+        </a>
+        <nav class="nav-links collapsible" id="navLinks" aria-label="Main">
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#services">Services</a>
+            <a href="#projects">Projects</a>
+            <a href="blog.html">Blog</a>
+            <a href="#reviews">Reviews</a>
+            <a href="#faq">FAQ</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <div class="nav-end">
+            <div class="nav-end" id="authSlot">
+                <a class="main-btn btn-inline btn-small" href="login.html">Login</a>
+            </div>
+            <button type="button" class="switch-circle icon-btn nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section class="hero">
+            <div>
+                <h1>Hi, I’m Mhamad</h1>
+                <p>I build websites and apps. The projects below are pulled live from my GitHub account.</p>
+                <div class="hero-actions">
+                    <a class="main-btn btn-inline" href="#projects">View projects</a>
+                    <a class="switch-circle" href="#contact" aria-label="Contact me">
+                        <i class="fa-solid fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-photo">
+                <img src="assets/hero.jpg" alt="Portrait of Mhamad standing by a pool at night">
+            </div>
+        </section>
+
+        <!-- About -->
+        <section class="section" id="about">
+            <div class="section-head">
+                <h2>About me</h2>
+                <p>A little about who I am.</p>
+            </div>
+            <div class="about-card">
+                <p>I’m Mhamad, a developer who enjoys turning ideas into clean, fast websites and apps. I care about simple design, readable code and the small details that make something feel good to use.</p>
+                <p>Everything on this site is built by hand, and the projects below come straight from my GitHub account.</p>
+                <a class="main-btn btn-inline" href="https://github.com/mhamad-code" target="_blank" rel="noopener">
+                    <i class="fa-brands fa-github"></i> See my GitHub
+                </a>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section class="section" id="skills">
+            <div class="section-head">
+                <h2>Skills</h2>
+                <p>The tools I use to build things.</p>
+            </div>
+
+            <div class="marquee">
+                <div class="marquee-track">
+                    <span class="skill"><i class="fa-brands fa-html5"></i>HTML5</span>
+                    <span class="skill"><i class="fa-brands fa-css3-alt"></i>CSS3</span>
+                    <span class="skill"><i class="fa-brands fa-js"></i>JavaScript</span>
+                    <span class="skill"><i class="fa-brands fa-react"></i>React</span>
+                    <span class="skill"><i class="fa-brands fa-node-js"></i>Node.js</span>
+                    <span class="skill"><i class="fa-brands fa-firebase"></i>Firebase</span>
+                    <span class="skill"><i class="fa-brands fa-git-alt"></i>Git</span>
+                    <span class="skill"><i class="fa-brands fa-github"></i>GitHub</span>
+                    <span class="skill"><i class="fa-brands fa-python"></i>Python</span>
+                </div>
+            </div>
+
+            <div class="marquee reverse">
+                <div class="marquee-track">
+                    <span class="skill"><i class="fa-brands fa-figma"></i>Figma</span>
+                    <span class="skill"><i class="fa-brands fa-bootstrap"></i>Bootstrap</span>
+                    <span class="skill"><i class="fa-brands fa-sass"></i>Sass</span>
+                    <span class="skill"><i class="fa-brands fa-npm"></i>npm</span>
+                    <span class="skill"><i class="fa-brands fa-linux"></i>Linux</span>
+                    <span class="skill"><i class="fa-solid fa-terminal"></i>Terminal</span>
+                    <span class="skill"><i class="fa-solid fa-mobile-screen"></i>Responsive design</span>
+                    <span class="skill"><i class="fa-solid fa-plug"></i>REST APIs</span>
+                    <span class="skill"><i class="fa-solid fa-database"></i>Databases</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section class="section" id="services">
+            <div class="section-head">
+                <h2>Services</h2>
+                <p>What I can build for you.</p>
+            </div>
+            <div class="services-grid">
+                <article class="project-card service-card">
+                    <span class="card-icon"><i class="fa-solid fa-laptop-code"></i></span>
+                    <h3>Website development</h3>
+                    <p>Fast, clean websites built from scratch, from portfolios to landing pages.</p>
+                </article>
+                <article class="project-card service-card">
+                    <span class="card-icon"><i class="fa-solid fa-mobile-screen"></i></span>
+                    <h3>Responsive UI design</h3>
+                    <p>Interfaces that look and feel right on phones, tablets and desktops.</p>
+                </article>
+                <article class="project-card service-card">
+                    <span class="card-icon"><i class="fa-solid fa-lock"></i></span>
+                    <h3>Login and backend setup</h3>
+                    <p>Sign-in with email, Google and GitHub, connected through Firebase.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section class="section" id="projects">
+            <div class="section-head">
+                <h2>Latest projects</h2>
+                <p>My most recently updated repositories.</p>
+            </div>
+            <div class="projects-grid" id="projectsGrid" data-limit="7" data-more="projects.html"></div>
+        </section>
+
+        <!-- Reviews (replace the placeholder text with real client reviews) -->
+        <section class="section" id="reviews">
+            <div class="section-head">
+                <h2>Client reviews</h2>
+                <p>What people say about working with me.</p>
+            </div>
+            <div class="services-grid">
+                <article class="project-card review-card">
+                    <div class="stars" aria-label="5 out of 5 stars">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="card-desc">Replace this text with a real review from one of your clients.</p>
+                    <div class="review-author">
+                        <span class="card-icon avatar-photo"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client photo" loading="lazy" onerror="this.remove()"></span>
+                        <div><strong>Client name</strong><span>Project type</span></div>
+                    </div>
+                </article>
+                <article class="project-card review-card">
+                    <div class="stars" aria-label="5 out of 5 stars">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="card-desc">Replace this text with a real review from one of your clients.</p>
+                    <div class="review-author">
+                        <span class="card-icon avatar-photo"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client photo" loading="lazy" onerror="this.remove()"></span>
+                        <div><strong>Client name</strong><span>Project type</span></div>
+                    </div>
+                </article>
+                <article class="project-card review-card">
+                    <div class="stars" aria-label="5 out of 5 stars">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="card-desc">Replace this text with a real review from one of your clients.</p>
+                    <div class="review-author">
+                        <span class="card-icon avatar-photo"><img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Client photo" loading="lazy" onerror="this.remove()"></span>
+                        <div><strong>Client name</strong><span>Project type</span></div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="section" id="faq">
+            <div class="section-head">
+                <h2>Frequently asked questions</h2>
+                <p>Quick answers before we talk.</p>
+            </div>
+            <div class="faq-list">
+                <details class="faq-item">
+                    <summary>What services do you offer? <i class="fa-solid fa-plus"></i></summary>
+                    <p>I build websites from scratch, design responsive interfaces, and set up login with Firebase (email, Google and GitHub).</p>
+                </details>
+                <details class="faq-item">
+                    <summary>How do I start a project with you? <i class="fa-solid fa-plus"></i></summary>
+                    <p>Send me a message on WhatsApp, Telegram or email with your idea. I’ll reply with questions and a plan.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>How long does a project take? <i class="fa-solid fa-plus"></i></summary>
+                    <p>It depends on the size and the features you need. I’ll give you an estimate once I know the details.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Will my website work on phones? <i class="fa-solid fa-plus"></i></summary>
+                    <p>Yes. Every page I build is responsive and tested on small and large screens.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Can you add login to my website? <i class="fa-solid fa-plus"></i></summary>
+                    <p>Yes. I use Firebase to add sign-in with email and password, Google and GitHub.</p>
+                </details>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="section" id="contact">
+            <div class="section-head">
+                <h2>Contact me</h2>
+                <p>Send me a message and I’ll reply by email.</p>
+            </div>
+            <form class="contact-box" id="contactForm">
+                <div class="contact-row">
+                    <div class="input-group">
+                        <div class="electric-glow"></div>
+                        <div class="electric-border"></div>
+                        <input type="text" id="contactName" name="name" placeholder=" " autocomplete="name" required>
+                        <label for="contactName">Your Name</label>
+                    </div>
+                    <div class="input-group">
+                        <div class="electric-glow"></div>
+                        <div class="electric-border"></div>
+                        <input type="email" id="contactEmail" name="email" placeholder=" " autocomplete="email" required>
+                        <label for="contactEmail">Email Address</label>
+                    </div>
+                </div>
+                <div class="input-group textarea">
+                    <div class="electric-glow"></div>
+                    <div class="electric-border"></div>
+                    <textarea id="contactMessage" name="message" placeholder=" " required></textarea>
+                    <label for="contactMessage">Message</label>
+                </div>
+                <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+                <button type="submit" class="main-btn btn-inline">
+                    <i class="fa-solid fa-paper-plane"></i> SEND MESSAGE
+                </button>
+                <p class="form-msg" id="contactMsg" aria-live="polite"></p>
+            </form>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="logo"><img src="assets/avatar.jpg" alt="Mhamad"></span>
+                <p><strong>Mhamad</strong>Developer building websites and apps.</p>
+            </div>
+            <nav class="footer-links" aria-label="Footer">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#services">Services</a>
+                <a href="projects.html">Projects</a>
+                <a href="blog.html">Blog</a>
+                <a href="#faq">FAQ</a>
+                <a href="#contact">Contact</a>
+                <a href="login.html">Login</a>
+            </nav>
+            <div class="footer-social">
+                <a class="switch-circle icon-btn" href="https://github.com/mhamad-code" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a class="switch-circle icon-btn" href="https://t.me/MohameedHamra" target="_blank" rel="noopener" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
+                <a class="switch-circle icon-btn" href="https://instagram.com/mohameed.hamra" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a class="switch-circle icon-btn" href="https://wa.me/963951348968" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                <a class="switch-circle icon-btn" href="mailto:mhamra148@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+        </div>
+        <div class="footer-line"></div>
+        <p class="copyright">&copy; <span id="year"></span> Mhamad. Built by hand and hosted on GitHub Pages.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/contact.js"></script>
+    <script type="module" src="js/nav.js"></script>
+    <script type="module" src="js/projects.js"></script>
+</body>
+
+</html>

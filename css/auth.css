@@ -1,0 +1,155 @@
+/* Login / sign-up page only. Shared pieces live in style.css */
+
+body.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 0 40px;
+}
+
+.back-home {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 60;
+    font-size: 18px;
+}
+
+.auth-wrapper {
+    width: 400px;
+    max-width: 92%;
+    perspective: 1600px;
+}
+
+/* Both panels share one grid cell so the card is as tall as the taller panel */
+.auth-card {
+    position: relative;
+    width: 100%;
+    display: grid;
+    transform-style: preserve-3d;
+    transition: transform 1s cubic-bezier(.68, -0.55, .27, 1.55);
+}
+
+.auth-card.flipped {
+    transform: rotateY(180deg);
+}
+
+.form-panel {
+    grid-area: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 38px;
+    border-radius: 35px;
+    background: var(--bg);
+    box-shadow: 20px 20px 40px rgba(163, 177, 198, .65), -20px -20px 40px rgba(255, 255, 255, .95);
+    backface-visibility: hidden;
+}
+
+.signup-panel {
+    transform: rotateY(180deg);
+}
+
+.form-panel h1 {
+    text-align: center;
+    font-size: 27px;
+    color: var(--text);
+    margin-bottom: 7px;
+}
+
+.subtitle {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 30px;
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 3px 24px;
+    color: var(--muted-2);
+    font-size: 14px;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.checkbox input {
+    accent-color: var(--blue);
+}
+
+.options a,
+.options button.link {
+    color: var(--blue-2);
+    text-decoration: none;
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* "or continue with" */
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 24px 0 18px;
+    font-size: 12px;
+    color: var(--muted-2);
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    height: 4px;
+    border-radius: 4px;
+    box-shadow: inset 2px 2px 4px rgba(163, 177, 198, .55), inset -2px -2px 4px rgba(255, 255, 255, .95);
+}
+
+.social-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.social-row .main-btn {
+    height: 50px;
+    font-size: 13px;
+    letter-spacing: 0;
+}
+
+/* Status message under the submit button */
+.auth-msg {
+    min-height: 20px;
+    margin-top: 14px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--muted);
+}
+
+.auth-msg i {
+    margin-right: 6px;
+    color: var(--blue);
+}
+
+.auth-msg.is-error {
+    color: var(--text);
+    font-weight: 500;
+}
+
+.switch-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+    font-size: 12px;
+    color: var(--muted-2);
+}
