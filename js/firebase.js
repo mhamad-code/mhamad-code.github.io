@@ -11,7 +11,8 @@ export * from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 // False until the placeholder values in config.js are replaced
 export const isConfigured = !Object.values(firebaseConfig).some((v) => String(v).startsWith("YOUR_"));
 
-export const auth = isConfigured ? getAuth(initializeApp(firebaseConfig)) : null;
+export const app = isConfigured ? initializeApp(firebaseConfig) : null;
+export const auth = app ? getAuth(app) : null;
 
 export const providers = {
     google: new GoogleAuthProvider(),

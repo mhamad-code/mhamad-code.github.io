@@ -137,9 +137,13 @@ async function init() {
             root.replaceChildren(stateBlock("fa-solid fa-circle-exclamation", "This post doesn’t exist.", "Back to all posts", "blog.html"));
             return;
         }
-        const res = await fetch(`posts/${meta.slug}.md`);
-        if (!res.ok) throw new Error(`Could not load posts/${meta.slug}.md (${res.status})`);
-        render(meta, await res.text());
+        let markdown = meta.markdown; // posts written in the admin panel carry their text
+        if (markdown === undefined) {
+            const res = await fetch(`posts/${meta.slug}.md`);
+            if (!res.ok) throw new Error(`Could not load posts/${meta.slug}.md (${res.status})`);
+            markdown = await res.text();
+        }
+        render(meta, markdown);
     } catch (err) {
         console.error(err);
         root.replaceChildren(stateBlock("fa-solid fa-circle-exclamation", "Couldn’t load this post. Refresh the page and try again.", "Back to all posts", "blog.html"));

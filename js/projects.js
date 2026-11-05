@@ -4,6 +4,7 @@
 // Each card has a live preview when the project is hosted online.
 // ==========================================================
 import { GITHUB_USER } from "./config.js";
+import { getConfig } from "./db.js";
 import { createLoader } from "./loader.js";
 
 const CACHE_KEY = `gh-repos:${GITHUB_USER}`;
@@ -14,7 +15,7 @@ const PREVIEW_HOSTS = ["github.io", "netlify.app", "vercel.app"];
 const VIEW_W = 1280; // the preview renders a 1280px-wide page, scaled down to fit the card
 
 const grid = document.getElementById("projectsGrid");
-const limit = Number(grid.dataset.limit) || Infinity;
+let limit = Number(grid.dataset.limit) || Infinity;
 const moreHref = grid.dataset.more;
 const searchInput = document.getElementById("search");
 const countEl = document.getElementById("resultCount");
@@ -42,6 +43,8 @@ async function getRepos() {
 
 // Returns the live site URL for a repo, or null if it isn't published
 function previewUrl(repo) {
+    if (repo.__preview === "off") return null;
+    if (repo.__preview) return repo.__preview;
     const site = repo.homepage;
     if (site && /^https?:\/\//i.test(site)) {
         try {
@@ -225,10 +228,44 @@ function render(repos, query = "") {
     grid.replaceChildren(...cards);
 }
 
+// Admin settings: how many on the home page, hidden, pinned, custom previews and descriptions
+async function applySettings(repos) {
+    let settings = {};
+    try {
+        settings = (await getConfig()).projects || {};
+    } catch { /* keep the defaults */ }
+
+    if (Number(settings.homeCount) > 0 && grid.dataset.limit) limit = Number(settings.homeCount);
+
+    const hidden = new Set(settings.hidden || []);
+    const pinned = settings.pinned || [];
+    const overrides = new Map((settings.overrides || []).map((o) => [o.repo, o]));
+
+    const rank = (r) => {
+        const i = pinned.indexOf(r.name);
+        return i === -1 ? 1e9 : i;
+    };
+
+    return repos
+        .filter((r) => !hidden.has(r.name))
+        .map((r) => {
+            const o = overrides.get(r.name);
+            if (!o) return r;
+            const preview = String(o.preview || "").trim();
+            const off = preview.toLowerCase() === "off";
+            return {
+                ...r,
+                description: o.description || r.description,
+                __preview: off ? "off" : /^https?:\/\//i.test(preview) ? preview : undefined
+            };
+        })
+        .sort((a, b) => rank(a) - rank(b));
+}
+
 async function init() {
     grid.replaceChildren(stateBlock("fa-solid fa-spinner fa-spin", "Loading projects…"));
     try {
-        const repos = await getRepos();
+        const repos = await applySettings(await getRepos());
         render(repos);
         if (searchInput) searchInput.addEventListener("input", () => render(repos, searchInput.value));
     } catch (err) {

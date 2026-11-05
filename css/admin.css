@@ -1,0 +1,194 @@
+/* ==========================================================
+   Admin panel. Neumorphic by default; Glass overrides at the bottom.
+   (Tabs and tool rhythm come from tools.css.)
+   ========================================================== */
+
+.admin-panel { max-width: 900px; }
+
+.admin-heading {
+    padding-top: 14px;
+    border-top: 1px solid rgba(163, 177, 198, .35);
+}
+
+.admin-panel > .admin-heading:first-child {
+    padding-top: 0;
+    border-top: 0;
+}
+
+.admin-heading h3 {
+    font-size: 18px;
+    color: var(--text);
+}
+
+.admin-heading p {
+    margin-top: 6px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--muted);
+}
+
+/* Cards inside panels */
+.item-card {
+    padding: 20px;
+    border-radius: 20px;
+    background: var(--bg);
+    box-shadow: inset 6px 6px 12px rgba(163, 177, 198, .55), inset -6px -6px 12px rgba(255, 255, 255, .95);
+}
+
+.item-card > * + * { margin-top: 16px; }
+
+.item-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.item-head strong {
+    min-width: 0;
+    font-size: 15px;
+    color: var(--text);
+    overflow-wrap: anywhere;
+}
+
+.item-tools {
+    display: flex;
+    gap: 10px;
+}
+
+.list-items {
+    display: grid;
+    gap: 18px;
+}
+
+.list-editor > .main-btn { margin-top: 18px; }
+
+/* Switch rows */
+.toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+}
+
+.toggle-row strong {
+    display: block;
+    font-size: 14px;
+    color: var(--text);
+}
+
+.toggle-row small {
+    display: block;
+    margin-top: 2px;
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--muted);
+}
+
+.toggle-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 30px;
+}
+
+@media (max-width: 560px) {
+    .toggle-grid { grid-template-columns: 1fr; }
+}
+
+.save-bar {
+    position: sticky;
+    bottom: 0;
+    padding-top: 6px;
+}
+
+.save-bar .form-msg { margin-top: 12px; }
+
+.input-group.textarea.short { height: 110px; }
+
+/* Visitors */
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+@media (max-width: 700px) {
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.stat .stat-num {
+    display: block;
+    font-size: 30px;
+    line-height: 1.1;
+    color: var(--text);
+}
+
+.stat span {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.stat small {
+    display: block;
+    font-size: 12px;
+    color: var(--muted-2);
+}
+
+.bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 150px;
+}
+
+.bar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    height: 100%;
+}
+
+.bar i {
+    display: block;
+    width: 100%;
+    min-height: 3px;
+    border-radius: 8px 8px 4px 4px;
+    background: linear-gradient(180deg, #00cfff, #006cff);
+}
+
+.bar span {
+    font-size: 11px;
+    color: var(--muted-2);
+}
+
+.top-list {
+    display: grid;
+    gap: 10px;
+    list-style: none;
+}
+
+.top-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.top-list b { color: var(--text); }
+
+/* ----------------------------------------------------------
+   Glass theme
+   ---------------------------------------------------------- */
+[data-theme="glass"] .item-card {
+    background: rgba(255, 255, 255, .08);
+    border: 1px solid rgba(255, 255, 255, .3);
+    box-shadow: none;
+}
+
+[data-theme="glass"] .admin-heading { border-color: rgba(255, 255, 255, .3); }
+[data-theme="glass"] .bar i { background: var(--accent); }
+[data-theme="glass"] .input-group.textarea.short { height: 110px; }

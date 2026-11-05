@@ -2,6 +2,7 @@
 // Navbar: shows "Login" or the signed-in user with a logout button.
 // ==========================================================
 import { auth, isConfigured, onAuthStateChanged, signOut } from "./firebase.js";
+import { ADMIN_EMAIL } from "./config.js";
 
 const slot = document.getElementById("authSlot");
 
@@ -36,7 +37,18 @@ function renderUser(user) {
     logout.innerHTML = '<i class="fa-solid fa-right-from-bracket"></i>';
     logout.addEventListener("click", () => signOut(auth));
 
-    slot.replaceChildren(chip, logout);
+    const items = [chip];
+    if (user.email && user.email === ADMIN_EMAIL) {
+        const admin = document.createElement("a");
+        admin.href = "admin.html";
+        admin.className = "switch-circle icon-btn";
+        admin.title = "Admin panel";
+        admin.setAttribute("aria-label", "Admin panel");
+        admin.innerHTML = '<i class="fa-solid fa-gauge"></i>';
+        items.push(admin);
+    }
+    items.push(logout);
+    slot.replaceChildren(...items);
 }
 
 function renderGuest() {
