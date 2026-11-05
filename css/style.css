@@ -2335,3 +2335,17 @@ a {
         box-shadow: 0 0 20px 10px rgba(0, 0, 0, .15);
     }
 }
+
+/* Navbar on phones */
+@media (max-width: 900px) {
+    .nav {
+        flex-wrap: wrap;
+        row-gap: 10px;
+    }
+
+    .nav-links:not(.collapsible) {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+    }
+}

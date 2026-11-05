@@ -2,7 +2,7 @@
 import { getStats } from "../db.js";
 import { summarizeStats, pageLabel } from "../config-utils.js";
 import { createLoader } from "../loader.js";
-import { el, heading, setMsg } from "./form.js";
+import { el, heading, setMsg, explainError } from "./form.js";
 
 function statCard(big, label, small) {
     const card = el("div", "item-card stat");
@@ -19,7 +19,7 @@ export async function dashboard(box) {
     } catch (err) {
         console.error(err);
         const msg = el("p", "form-msg");
-        setMsg(msg, "Couldn’t load the numbers. Publish the Firestore rules and sign in with the admin email.", "error");
+        setMsg(msg, explainError(err), "error");
         box.replaceChildren(msg);
         return;
     }

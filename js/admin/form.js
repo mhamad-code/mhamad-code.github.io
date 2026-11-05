@@ -29,10 +29,14 @@ export function setMsg(box, message = "", type = "ok") {
 }
 
 export function explainError(err) {
-    if (err && err.code === "permission-denied") {
-        return "Firestore refused the request. Publish the security rules and sign in with the admin email.";
+    const code = err && err.code;
+    if (code === "permission-denied") {
+        return "Firestore refused the request. Sign in with Google using the admin email (the email must be verified) and publish the rules.";
     }
-    return `Something went wrong${err && err.code ? ` (${err.code})` : ""}. Try again.`;
+    if (code === "failed-precondition" || code === "not-found" || code === "unavailable") {
+        return `Firestore isn’t reachable (${code}). Create the database in Firebase Console (Build > Firestore Database) and check your connection.`;
+    }
+    return `Something went wrong${code ? ` (${code})` : ""}. Try again.`;
 }
 
 let counter = 0;

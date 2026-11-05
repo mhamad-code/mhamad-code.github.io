@@ -41,7 +41,7 @@ function gate(iconClass, message, linkText, linkHref) {
     app.replaceChildren(card);
 }
 
-async function start() {
+async function start(user) {
     app.replaceChildren(createLoader());
 
     let config = {};
@@ -107,7 +107,18 @@ async function start() {
         panels[tab.id] = panel;
     });
 
-    app.replaceChildren(tabBar, ...Object.values(panels));
+    const notices = [];
+    if (!user.emailVerified) {
+        const card = el("div", "settings-card");
+        const state = el("div", "grid-state");
+        state.append(iconEl("fa-solid fa-triangle-exclamation"), document.createTextNode(
+            `The email of this account (${user.email}) is not verified, so Firestore will refuse to read or save anything. `
+            + "Log out, then log in with the Google button using the same email."));
+        card.append(state);
+        notices.push(card);
+    }
+
+    app.replaceChildren(...notices, tabBar, ...Object.values(panels));
     window.addEventListener("hashchange", () => show(location.hash.slice(1)));
     show(location.hash.slice(1));
 }
@@ -121,7 +132,7 @@ if (!isConfigured) {
         } else if (user.email !== ADMIN_EMAIL) {
             gate("fa-solid fa-ban", `This account (${user.email || "no email"}) is not the admin.`, "Use another account", "login.html");
         } else {
-            start();
+            start(user);
         }
     });
 }
