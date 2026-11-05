@@ -7,7 +7,7 @@ import { ADMIN_EMAIL } from "./config.js";
 import { dayKey } from "./config-utils.js";
 import {
     getFirestore, doc, getDoc, setDoc, deleteDoc, collection, getDocs, query, where,
-    orderBy, limit, writeBatch, increment, documentId, serverTimestamp
+    writeBatch, increment, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const db = isConfigured ? getFirestore(app) : null;
@@ -132,10 +132,19 @@ export async function trackVisit(page) {
     }
 }
 
-// Last `days` days of counters plus the all-time totals (admin only)
+// Last `days` days of counters plus the all-time totals (admin only).
+// Reads each day by its id (no query, so no index is needed). It also looks one day
+// ahead, because visitors in other time zones can already be on "tomorrow".
 export async function getStats(days = 30) {
-    const snap = await getDocs(query(collection(db, "daily"), orderBy(documentId(), "desc"), limit(days)));
-    const rows = snap.docs.map((d) => ({ day: d.id, ...d.data() }));
-    const totalSnap = await getDoc(doc(db, "stats", "total"));
+    const now = new Date();
+    const keys = [];
+    for (let i = -1; i < days; i++) {
+        keys.push(dayKey(new Date(now.getFullYear(), now.getMonth(), now.getDate() - i)));
+    }
+    const [snaps, totalSnap] = await Promise.all([
+        Promise.all(keys.map((key) => getDoc(doc(db, "daily", key)))),
+        getDoc(doc(db, "stats", "total"))
+    ]);
+    const rows = snaps.filter((snap) => snap.exists()).map((snap) => ({ day: snap.id, ...snap.data() }));
     return { rows, total: totalSnap.exists() ? totalSnap.data() : { visits: 0, newVisitors: 0 } };
 }
