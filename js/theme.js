@@ -31,7 +31,7 @@
             if (!field) return;
             const key = field.tagName === "TEXTAREA" ? "textarea" : field.type;
             const icon = document.createElement("i");
-            icon.className = `fa-solid ${ICONS[key] || "fa-user"} field-icon`;
+            icon.className = `fa-solid ${group.dataset.icon || ICONS[key] || "fa-user"} field-icon`;
             icon.setAttribute("aria-hidden", "true");
             group.append(icon);
         });

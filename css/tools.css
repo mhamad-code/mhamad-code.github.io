@@ -1,0 +1,234 @@
+/* ==========================================================
+   Tools page. Neumorphic by default; the Glass theme overrides
+   are at the bottom of this same file (same components, no copies).
+   ========================================================== */
+
+/* Tabs (they reuse the .skill chip) */
+.tool-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 34px;
+}
+
+.skill.tab {
+    cursor: pointer;
+    border: none;
+    font-size: 14px;
+    color: var(--text);
+}
+
+.skill.tab[aria-selected="true"] {
+    color: var(--blue-2);
+    transform: none;
+    box-shadow: inset 6px 6px 12px rgba(163, 177, 198, .55), inset -6px -6px 12px rgba(255, 255, 255, .95);
+}
+
+/* Panels */
+.tool-panel > * + * { margin-top: 22px; }
+.tool-panel > .form-msg { margin-top: 14px; }
+.tool-panel > .meter-label { margin-top: 10px; }
+.tool-panel .input-group { margin-bottom: 0; }
+
+.tool-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.tool-row .input-group {
+    flex: 1;
+    min-width: 0;
+}
+
+.tool-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+}
+
+.tool-actions .main-btn:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+/* Sliders, colors, checkboxes */
+.opt {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.opt > span { min-width: 92px; }
+
+.opt input[type="range"] {
+    flex: 1;
+    min-width: 0;
+    accent-color: var(--blue);
+}
+
+.opt output {
+    min-width: 3ch;
+    text-align: right;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.opt-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px 36px;
+}
+
+.color-dot,
+.color-big {
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    box-shadow: 0 0 0 2px rgba(163, 177, 198, .6);
+}
+
+.color-dot {
+    width: 46px;
+    height: 36px;
+    border-radius: 12px;
+}
+
+.color-big {
+    display: block;
+    width: 100%;
+    height: 110px;
+    border-radius: 16px;
+}
+
+.color-dot::-webkit-color-swatch-wrapper,
+.color-big::-webkit-color-swatch-wrapper { padding: 0; }
+
+.color-dot::-webkit-color-swatch,
+.color-big::-webkit-color-swatch {
+    border: none;
+    border-radius: 12px;
+}
+
+.color-dot::-moz-color-swatch,
+.color-big::-moz-color-swatch {
+    border: none;
+    border-radius: 12px;
+}
+
+.checks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 20px;
+}
+
+.check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--muted);
+    cursor: pointer;
+}
+
+.check input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--blue);
+}
+
+@media (max-width: 560px) {
+    .checks { grid-template-columns: 1fr; }
+    .opt > span { min-width: 70px; }
+}
+
+/* Strength meter */
+.meter {
+    height: 10px;
+    overflow: hidden;
+    border-radius: 99px;
+    background: var(--bg);
+    box-shadow: inset 3px 3px 6px rgba(163, 177, 198, .55), inset -3px -3px 6px rgba(255, 255, 255, .95);
+}
+
+.meter i {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: 99px;
+    background: linear-gradient(110deg, #006cff, #00cfff);
+    transition: width .4s ease;
+}
+
+.meter-label {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+/* QR preview */
+.qr-stage {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 20px;
+    background: var(--bg);
+    box-shadow: inset 6px 6px 12px rgba(163, 177, 198, .55), inset -6px -6px 12px rgba(255, 255, 255, .95);
+}
+
+.qr-stage[hidden] { display: none; }
+
+.qr-stage canvas {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* JSON editor */
+.input-group.textarea.tall { height: 320px; }
+
+.input-group.tool-code textarea {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    white-space: pre;
+}
+
+/* ----------------------------------------------------------
+   Glass theme
+   ---------------------------------------------------------- */
+[data-theme="glass"] .skill.tab[aria-selected="true"] {
+    background: var(--accent);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: none;
+}
+
+[data-theme="glass"] .qr-stage {
+    background: rgba(0, 0, 0, .2);
+    border: 1px solid rgba(255, 255, 255, .3);
+    border-radius: 12px;
+    box-shadow: none;
+}
+
+[data-theme="glass"] .meter {
+    background: rgba(255, 255, 255, .3);
+    box-shadow: none;
+}
+
+[data-theme="glass"] .meter i { background: var(--accent); }
+
+[data-theme="glass"] :is(.color-dot, .color-big) {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, .3);
+}
+
+[data-theme="glass"] .input-group.textarea.tall { height: 320px; }
+
+[data-theme="glass"] .input-group.tool-code textarea {
+    font-size: 14px;
+    border-radius: 16px;
+}
