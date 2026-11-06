@@ -20,4 +20,4 @@ export const firebaseConfig = {
 export const ADMIN_EMAIL = "mhamra148@gmail.com";
 
 // Address of the assistant service (Cloudflare Worker). Leave empty to hide the chat button.
-export const ASSISTANT_URL = "";
+export const ASSISTANT_URL = "https://portfolio-assistant.mhamra148.workers.dev";
