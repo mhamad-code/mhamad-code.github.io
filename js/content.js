@@ -193,33 +193,59 @@ function customCss(cfg) {
     style.textContent = css;
 }
 
+// While maintenance mode is on, visitors see only the message: the rest of the page
+// is hidden and scrolling is locked.
+const MAINTENANCE_CSS = `
+html.maintenance-on, html.maintenance-on body { overflow: hidden !important; height: 100%; }
+html.maintenance-on body > *:not(#maintenance):not(.bg-circle):not(script):not(style):not(link) { display: none !important; }
+`;
+
+function lockSite(on) {
+    let style = document.getElementById("maintenance-style");
+    if (on && !style) {
+        style = el("style");
+        style.id = "maintenance-style";
+        style.textContent = MAINTENANCE_CSS;
+        document.head.append(style);
+    }
+    if (!on && style) style.remove();
+    document.documentElement.classList.toggle("maintenance-on", on);
+}
+
 async function maintenance(cfg) {
-    const old = document.getElementById("maintenance");
     const m = cfg.maintenance;
+    let overlay = document.getElementById("maintenance");
+
     if (!m || m.enabled !== true) {
-        if (old) old.remove();
+        if (overlay) overlay.remove();
+        lockSite(false);
         return;
     }
-    if (old) return;
 
-    const overlay = el("div");
-    overlay.id = "maintenance";
-    overlay.style.cssText = "position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;"
-        + "padding:20px;background:var(--bg);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)";
+    if (!overlay) {
+        overlay = el("div");
+        overlay.id = "maintenance";
+        overlay.style.cssText = "position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;"
+            + "padding:20px;overflow:auto;background:var(--bg);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)";
 
-    const card = el("div", "settings-card");
-    card.style.textAlign = "center";
-    const wrench = icon("fa-solid fa-screwdriver-wrench");
-    wrench.style.cssText = "display:block;margin-bottom:16px;font-size:34px;color:var(--blue)";
-    const link = el("a", "", "Admin login");
-    link.href = "login.html";
-    link.style.cssText = "display:inline-block;margin-top:20px;font-size:13px;color:var(--muted)";
-    card.append(wrench, el("p", "", text(m.message) || "The site is being updated. Please come back soon."), link);
-    overlay.append(card);
-    document.body.append(overlay);
+        const card = el("div", "settings-card");
+        card.style.textAlign = "center";
+        const wrench = icon("fa-solid fa-screwdriver-wrench");
+        wrench.style.cssText = "display:block;margin-bottom:16px;font-size:34px;color:var(--blue)";
+        const link = el("a", "", "Admin login");
+        link.href = "login.html";
+        link.style.cssText = "display:inline-block;margin-top:20px;font-size:13px;color:var(--muted)";
+        card.append(wrench, el("p", "", text(m.message) || "The site is being updated. Please come back soon."), link);
+        overlay.append(card);
+        document.body.append(overlay);
+    }
+    lockSite(true);
 
     // The admin can still browse the site
-    if (await isAdminUser()) overlay.remove();
+    if (await isAdminUser()) {
+        overlay.remove();
+        lockSite(false);
+    }
 }
 
 /* ---------- Run ---------- */

@@ -18,3 +18,6 @@ export const firebaseConfig = {
 
 // The only account allowed into the admin panel (Firestore rules must use the same email)
 export const ADMIN_EMAIL = "mhamra148@gmail.com";
+
+// Address of the assistant service (Cloudflare Worker). Leave empty to hide the chat button.
+export const ASSISTANT_URL = "";

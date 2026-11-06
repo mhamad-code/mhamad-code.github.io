@@ -1,0 +1,8 @@
+name = "portfolio-assistant"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+
+[vars]
+# Sites allowed to talk to the assistant (comma separated, no path, no trailing slash)
+ALLOWED_ORIGINS = "https://mhamad-code.github.io"
+MODEL = "openrouter/free"
