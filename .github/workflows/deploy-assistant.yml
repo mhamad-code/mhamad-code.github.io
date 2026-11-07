@@ -14,7 +14,28 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Deploy the worker and set its secret
+      # Storage for the daily cap. Created once, found again on later runs.
+      # If this step fails the assistant still works, just without the daily cap.
+      - name: Prepare the daily-cap storage
+        continue-on-error: true
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          API="https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT/storage/kv/namespaces"
+          TITLE="portfolio-assistant-cap"
+          ID=$(curl -sf -H "Authorization: Bearer $CF_TOKEN" "$API?per_page=100" \
+            | python3 -c 'import sys, json; t = sys.argv[1]; print(next((n["id"] for n in json.load(sys.stdin)["result"] if n["title"] == t), ""))' "$TITLE")
+          if [ -z "$ID" ]; then
+            ID=$(curl -sf -X POST -H "Authorization: Bearer $CF_TOKEN" -H "Content-Type: application/json" \
+              --data "{\"title\":\"$TITLE\"}" "$API" \
+              | python3 -c 'import sys, json; print(json.load(sys.stdin)["result"]["id"])')
+          fi
+          if [ -z "$ID" ] || [ "$ID" = "null" ]; then echo "Could not prepare the storage"; exit 1; fi
+          printf '\n[[kv_namespaces]]\nbinding = "CAP"\nid = "%s"\n' "$ID" >> worker/wrangler.toml
+          echo "Daily-cap storage ready"
+
+      - name: Deploy the worker and set its secrets
         id: deploy
         uses: cloudflare/wrangler-action@v3
         with:
@@ -23,8 +44,10 @@ jobs:
           workingDirectory: worker
           secrets: |
             OPENROUTER_API_KEY
+            TURNSTILE_SECRET
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          TURNSTILE_SECRET: ${{ secrets.TURNSTILE_SECRET }}
 
       - name: Show the assistant address
         run: echo "Assistant URL ${{ steps.deploy.outputs.deployment-url }}"

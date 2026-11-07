@@ -207,6 +207,15 @@
     transform: translateY(-2px);
 }
 
+/* Human check (only visible when Cloudflare needs a tap) */
+.assistant-check {
+    display: flex;
+    justify-content: center;
+    padding: 0 14px;
+}
+
+.assistant-check:empty { display: none; }
+
 /* Input */
 .assistant-form {
     display: flex;

@@ -10,8 +10,10 @@ import { parseSSE, readDelta, extractThink } from "./assistant/stream.js";
 import { rank, expandQuery } from "./assistant/retrieve.js";
 import { getKnowledge } from "./assistant/knowledge.js";
 import { loadRenderLibs, renderMarkdown } from "./assistant/render.js";
+import { getTurnstileToken } from "./assistant/turnstile.js";
 
 const ENDPOINT = config.ASSISTANT_URL || "";
+const SITE_KEY = config.TURNSTILE_SITE_KEY || ""; // empty = no human check
 const STORE = "assistant-chat-v1";
 const OPEN = "assistant-open";
 const MAX_STORED = 30;
@@ -102,7 +104,10 @@ function init() {
     sendBtn.type = "submit";
     form.append(input, sendBtn);
 
-    panel.append(head, log, form);
+    // Where Cloudflare's human check may appear (it is invisible unless it needs a tap)
+    const check = el("div", "assistant-check");
+
+    panel.append(head, log, check, form);
     root.append(panel, fab);
     document.body.append(root);
 
@@ -248,6 +253,8 @@ function init() {
             const hits = rank(expandQuery(recent), kb.chunks, 6);
             const context = hits.map((h) => `[${h.title}] (${h.url})\n${h.text}`).join("\n\n");
 
+            const turnstile = SITE_KEY ? await getTurnstileToken(SITE_KEY, check) : undefined;
+
             const res = await fetch(ENDPOINT, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -256,6 +263,7 @@ function init() {
                     messages: messages.slice(-MAX_SENT),
                     context,
                     sitemap: kb.sitemap,
+                    turnstile,
                     page: location.pathname.split("/").pop() || "index.html"
                 })
             });

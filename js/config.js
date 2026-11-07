@@ -21,3 +21,6 @@ export const ADMIN_EMAIL = "mhamra148@gmail.com";
 
 // Address of the assistant service (Cloudflare Worker). Leave empty to hide the chat button.
 export const ASSISTANT_URL = "https://portfolio-assistant.mhamra148.workers.dev";
+
+// Public site key of the Cloudflare Turnstile human check (safe to publish). Empty = no check.
+export const TURNSTILE_SITE_KEY = "0x4AAAAAAF3V3o0vHj_3qGK7";

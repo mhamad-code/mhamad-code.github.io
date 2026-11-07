@@ -70,6 +70,36 @@ The visitor is currently on: ${clip(body.page, LIMITS.page) || "unknown"}`;
     return [{ role: "system", content: system }, ...history];
 }
 
+// Cloudflare Turnstile: proves the question comes from a real browser on your site.
+// Returns true / false, or null when the check itself could not run.
+async function verifyHuman(token, env, ip, hosts) {
+    if (typeof token !== "string" || !token || token.length > 2048) return false;
+    const form = new FormData();
+    form.append("secret", env.TURNSTILE_SECRET);
+    form.append("response", token);
+    if (ip && ip !== "unknown") form.append("remoteip", ip);
+    try {
+        const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body: form });
+        const data = await res.json();
+        return data.success === true && (!hosts.length || hosts.includes(data.hostname));
+    } catch {
+        return null;
+    }
+}
+
+// Daily cap shared by all visitors (needs the CAP storage binding; skipped without it)
+async function underDailyCap(env) {
+    if (!env.CAP) return true;
+    try {
+        const limit = Number(env.DAILY_LIMIT) || 300;
+        const key = `day:${new Date().toISOString().slice(0, 10)}`;
+        const used = Number(await env.CAP.get(key)) || 0;
+        if (used >= limit) return false;
+        await env.CAP.put(key, String(used + 1), { expirationTtl: 172800 });
+    } catch { /* storage hiccup: do not block the visitor */ }
+    return true;
+}
+
 export default {
     async fetch(request, env) {
         const allowed = String(env.ALLOWED_ORIGINS || "").split(",").map((s) => s.trim()).filter(Boolean);
@@ -98,6 +128,17 @@ export default {
 
         const messages = buildMessages(body || {});
         if (!messages) return json(400, "Send at least one user message.", headers);
+
+        if (env.TURNSTILE_SECRET) {
+            const hosts = allowed.map((o) => { try { return new URL(o).hostname; } catch { return ""; } }).filter(Boolean);
+            const human = await verifyHuman(body.turnstile, env, ip, hosts);
+            if (human === null) return json(503, "Couldn’t run the human check. Try again in a moment.", headers);
+            if (!human) return json(403, "The human check failed. Reload the page and try again.", headers);
+        }
+
+        if (!(await underDailyCap(env))) {
+            return json(429, "The assistant reached today’s limit. Please come back tomorrow.", headers);
+        }
 
         let upstream;
         try {
